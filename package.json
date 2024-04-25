@@ -1,0 +1,23 @@
+{
+  "name": "js-wasi-ext",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "npm test",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fermyon/js-wasi-ext.git"
+  },
+  "author": "Fermyon Engineering <engineering@fermyon.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/fermyon/js-wasi-ext/issues"
+  },
+  "homepage": "https://github.com/fermyon/js-wasi-ext#readme",
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}
