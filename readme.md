@@ -14,9 +14,18 @@ This library currently requires Webpack to define aliases for imports:
     },
 ```
 
-> Note: this currently does not support the `node:process` syntaxt yet.
+> Note: this currently does not support the `node:process` syntax yet.
 
-Then, in content:
+Because accessing environment variables needs to happen at runtime (not during
+pre-initialization), the actual environment variables can only be accessed from
+the handler function. If accessed outside, that is not supported (and currently,
+`process.env` returns an empty map; we can discuss what this behavior should be).
+
+The library currently exports a `setupExt()` function that explicitly initializes
+`process.env` from the handler. We could potentially remove that depending on the
+desired experience of this library.
+
+After setup:
 
 ```js
 import process from "process";
