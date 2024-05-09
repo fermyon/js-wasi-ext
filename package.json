@@ -18,9 +18,12 @@
   },
   "homepage": "https://github.com/fermyon/js-wasi-ext#readme",
   "devDependencies": {
+    "@types/node": "^20.12.11",
+    "@types/path-browserify": "^1.0.2",
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "process": "^0.11.10"
+    "process": "^0.11.10",
+    "path-browserify": "^1.0.1"
   }
 }

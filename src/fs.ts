@@ -1,6 +1,9 @@
 //@ts-ignore
 import { getDirectories } from 'wasi:filesystem/preopens@0.2.0'
+//@ts-ignore 
+import { initialCwd } from 'wasi:cli/environment@0.2.0'
 import { Descriptor } from './types/wasi-filesystem-types'
+import pathUtility from "path";
 
 interface FileReadOptions {
 	encoding: "utf-8",
@@ -13,7 +16,7 @@ let decoder = new TextDecoder()
 const fs = {
 	readFileSync: (path: string, options?: FileReadOptions): Uint8Array | string => {
 		let dirs = getDirectories()
-		// TODO: the path needs to be absolutized
+		path = pathUtility.resolve(initialCwd() || "/", path)
 		let closestMatchingDir = findLongestMatchingDirectory(dirs, path)
 		if (!closestMatchingDir) {
 			throw new Error(`File not found: ${path}`)
