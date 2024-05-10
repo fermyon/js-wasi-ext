@@ -6,12 +6,19 @@ This is a library compatible with WASI 0.2 that makes select Node.js APIs availa
 
 ## Usage
 
-This library currently requires Webpack to define aliases for imports:
+This library currently requires Webpack and uses a plugin to define the fall backs.:
 
 ```js
-    alias: {
-        'process': 'wasi-ext/lib/process',
-    },
+const WasiExtPlugin = require("wasi-ext/plugin")
+
+module.exports = {
+    ...
+    plugins: [
+        new WasiExtPlugin()
+    ],
+    ...
+};
+
 ```
 
 > Note: this currently does not support the `node:process` syntax yet.
@@ -36,6 +43,7 @@ console.log(process.env["PET"]);
 
 ## Supported APIs
 
-* `process`: `process.env`
+* `process`: certain methods are no-ops and few throw exceptions. For detailed list refer to the [upstream library](https://github.com/defunctzombie/node-process/blob/master/browser.js). 
+* `fs`: Limited to `readFileSync`
 
 
