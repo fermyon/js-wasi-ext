@@ -1,13 +1,20 @@
 //@ts-ignore
 import { getDirectories } from 'wasi:filesystem/preopens@0.2.0'
 //@ts-ignore 
-import { initialCwd } from 'wasi:cli/environment@0.2.0'
-import { Descriptor } from './types/wasi-filesystem-types'
+import { Descriptor, DirectoryEntry } from './types/wasi-filesystem-types'
 import pathUtility from "path";
+import process from "./process"
+import { Dirent, readdir, readdirSync } from 'fs';
 
 interface FileReadOptions {
 	encoding: "utf-8",
 	flag: string
+}
+
+interface DirReadOptions {
+	encoding: "utf-8",
+	withFileTypes: boolean,
+	recursive: boolean
 }
 
 let decoder = new TextDecoder()
@@ -16,7 +23,7 @@ let decoder = new TextDecoder()
 const fs = {
 	readFileSync: (path: string, options?: FileReadOptions): Uint8Array | string => {
 		let dirs = getDirectories()
-		path = pathUtility.resolve(initialCwd() || "/", path)
+		path = pathUtility.resolve(process.cwd() || "/", path)
 		let closestMatchingDir = findLongestMatchingDirectory(dirs, path)
 		if (!closestMatchingDir) {
 			throw new Error(`File not found: ${path}`)
@@ -32,6 +39,39 @@ const fs = {
 		} catch (e: any) {
 			if (e.message === "no-entry") {
 				throw new Error("File not found")
+			}
+			throw new Error("Something went wrong")
+		}
+	},
+	readdirSync: (path: string, options: DirReadOptions = { encoding: "utf-8", withFileTypes: false, recursive: false }): string[] | Dirent[] => {
+		let dirs = getDirectories()
+		path = pathUtility.resolve(process.cwd() || "/", path)
+		let closestMatchingDir = findLongestMatchingDirectory(dirs, path)
+		if (!closestMatchingDir) {
+			throw new Error(`Directory not found: ${path}`)
+		}
+		try {
+			let directories = readDirectory(closestMatchingDir[0], options)
+			if (!options.withFileTypes) {
+				return directories.map(k => { return k.name })
+			}
+			return directories.map(k => {
+				return {
+					name: k.name,
+					isBlockDevice: () => { return k.type === "block-device" },
+					isCharacterDevice: () => { return k.type === "character-device" },
+					isDirectory: () => { return k.type === "directory" },
+					isFIFO: () => { return k.type === "fifo" },
+					isFile: () => { return k.type === "regular-file" },
+					isSocket: () => { return k.type === "socket" },
+					isSymbolicLink: () => { return k.type === "symbolic-link" },
+					parentPath: pathUtility.dirname(k.name),
+					path: pathUtility.dirname(k.name)
+				}
+			})
+		} catch (e: any) {
+			if (e.message === "no-entry") {
+				throw new Error("Directory not found")
 			}
 			throw new Error("Something went wrong")
 		}
@@ -58,4 +98,26 @@ function findLongestMatchingDirectory(descriptors: [Descriptor, string][], fileP
 	});
 
 	return longestMatch;
+}
+
+function readDirectory(directory: Descriptor, options: DirReadOptions, path = ''): DirectoryEntry[] {
+	let entries: DirectoryEntry[] = [];
+	let test = directory.readDirectory();
+	let entry = test.readDirectoryEntry();
+
+	while (entry) {
+		let entryName = `${path}${entry.name}`;
+		entries.push({ type: entry.type, name: entryName });
+
+		if (entry.type === "directory") {
+			if (options.recursive) {
+				let subDir = directory.openAt({ symlinkFollow: true }, entry.name, { create: false, directory: true, exclusive: false, truncate: false }, { read: true });
+				entries = entries.concat(readDirectory(subDir, options, `${entryName}/`));
+			}
+		}
+
+		entry = test.readDirectoryEntry();
+	}
+
+	return entries;
 }
