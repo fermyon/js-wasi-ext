@@ -1,0 +1,20 @@
+{
+  "name": "test-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx webpack && mkdirp dist && mkdirp target && node build.mjs"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@bytecodealliance/componentize-js": "https://github.com/fermyon/ComponentizeJS#use_fetch_event",
+    "mkdirp": "^3.0.1",
+    "ts-loader": "^9.4.1",
+    "typescript": "^5.4.3",
+    "wasi-ext": "file:../../",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  }
+}
