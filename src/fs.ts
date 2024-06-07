@@ -21,7 +21,7 @@ let decoder = new TextDecoder()
 
 //TODO: figure out a way to stub these calls when not inside the handler function.
 const fs = {
-	readFileSync: (path: string, options?: FileReadOptions): Uint8Array | string => {
+	readFileSync: (path: string, options?: FileReadOptions): Buffer | string => {
 		let dirs = getDirectories()
 		path = pathUtility.resolve(process.cwd() || "/", path)
 		let closestMatchingDir = findLongestMatchingDirectory(dirs, path)
@@ -35,7 +35,7 @@ const fs = {
 			if (options?.encoding) {
 				return decoder.decode(res[0])
 			}
-			return res[0]
+			return Buffer.from(res[0])
 		} catch (e: any) {
 			if (e.message === "no-entry") {
 				throw new Error("File not found")
