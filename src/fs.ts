@@ -4,7 +4,7 @@ import { getDirectories } from 'wasi:filesystem/preopens@0.2.0'
 import { Descriptor, DirectoryEntry } from './types/wasi-filesystem-types'
 import pathUtility from "path";
 import process from "./process"
-import { Dirent, readdir, readdirSync } from 'fs';
+import { Dirent } from 'fs';
 
 interface FileReadOptions {
 	encoding: "utf-8",

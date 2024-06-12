@@ -47,7 +47,7 @@ function testEnvVars() {
 }
 
 function testReadFile() {
-    return fs.readFileSync("./test.txt", { encoding: "utf-8" })
+    return fs.readFileSync("./test.txt").toString("utf-8")
 }
 
 // Keep wizer happy during pre-init. Should go away
