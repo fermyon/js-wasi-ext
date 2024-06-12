@@ -1,6 +1,6 @@
 {
-  "name": "js-wasi-ext",
-  "version": "1.0.0",
+  "name": "@fermyon/wasi-ext",
+  "version": "0.1.0-alpha.0",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
@@ -25,6 +25,7 @@
   "dependencies": {
     "buffer": "^6.0.3",
     "path-browserify": "^1.0.1",
-    "process": "^0.11.10"
+    "process": "^0.11.10",
+    "webpack": "^5.92.0"
   }
 }
