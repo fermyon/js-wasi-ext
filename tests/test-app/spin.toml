@@ -1,0 +1,19 @@
+spin_manifest_version = 2
+
+[application]
+authors = ["fermyon engineering <engineering@fermyon.com>"]
+description = ""
+name = "wasi-ext-tests"
+version = "0.1.0"
+
+[[trigger.http]]
+route = "/..."
+component = "wasi-ext-tests"
+
+[component.wasi-ext-tests]
+source = "target/wasi-ext-tests.wasm"
+exclude_files = ["**/node_modules"]
+files = [{ source = "assets/test.txt", destination = "test.txt" }]
+[component.wasi-ext-tests.build]
+command = "npm run build"
+watch = ["src/**/*.ts", "package.json"]

@@ -6,10 +6,22 @@ module.exports = class WasiExtPlugin {
             path: require.resolve('path-browserify'),
         };
     }
+
     apply(compiler) {
-        compiler.options.resolve.fallback = {
-            ...this.fallbacks,
-            ...compiler.options.resolve.fallback,
-        }
+        compiler.hooks.afterPlugins.tap('WasiExtPlugin', (compiler) => {
+            const webpack = compiler.webpack || require('webpack');
+
+            compiler.options.resolve.fallback = {
+                ...this.fallbacks,
+                ...compiler.options.resolve.fallback,
+            };
+
+            // Adding ProvidePlugin configuration
+            compiler.options.plugins.push(
+                new webpack.ProvidePlugin({
+                    Buffer: ['buffer', 'Buffer'],
+                })
+            );
+        });
     }
-}
+};
