@@ -21,6 +21,7 @@
     "templates/**/*",
     "lib/**/*",
     "plugin/**/*",
-    "tests/**/*"
+    "tests/**/*",
+    "postinstall.mjs"
   ]
 }

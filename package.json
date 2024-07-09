@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "(cd tests && ./test.sh)",
-    "build": "tsc"
+    "build": "tsc",
+    "postinstall": "node postinstall.mjs"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,10 @@
     "buffer": "^6.0.3",
     "path-browserify": "^1.0.1",
     "process": "^0.11.10",
-    "webpack": "^5.92.0"
+    "webpack": "^5.92.0",
+    "componentize-postinstall": "https://github.com/karthik2804/componentize-postinstall"
+  },
+  "config": {
+    "wit": "../../wit"
   }
 }

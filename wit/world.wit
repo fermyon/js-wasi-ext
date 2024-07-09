@@ -1,0 +1,5 @@
+package fermyon:js-wasi-ext@0.2.0;
+
+world js-wasi-ext {
+    include wasi:cli/imports@0.2.0;
+}

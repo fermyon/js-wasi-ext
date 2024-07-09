@@ -4,12 +4,18 @@ This is a library compatible with WASI 0.2 that makes select Node.js APIs availa
 [ComponentizeJS](https://github.com/bytecodealliance/componentizeJS/) and
 [StarlingMonkey](https://github.com/bytecodealliance/starlingmonkey).
 
+## Installation
+
+```bash
+npm install @fermyon/wasi-ext
+```
+
 ## Usage
 
 This library currently requires Webpack and uses a plugin to define the fall backs.:
 
 ```js
-const WasiExtPlugin = require("wasi-ext/plugin")
+const WasiExtPlugin = require("@fermyon/wasi-ext/plugin")
 
 module.exports = {
     ...
