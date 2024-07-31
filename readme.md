@@ -43,7 +43,7 @@ console.log(process.env["PET"]);
 
 ## Supported APIs
 
-* `process`: certain methods are no-ops and few throw exceptions. For detailed list refer to the [upstream library](https://github.com/defunctzombie/node-process/blob/master/browser.js). 
-* `fs`: Limited to `readFileSync`
+* `process`: certain methods are no-ops and few throw exceptions. For detailed list refer to the [upstream library](https://github.com/defunctzombie/node-process/blob/master/browser.js). `process.env` is only populated when inside the handler function, when outside, it returns an empty object (i.e) `{}`
+* `fs`: Limited to `readFileSync` and `readdirSync`
 
 
