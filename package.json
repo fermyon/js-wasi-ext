@@ -1,12 +1,12 @@
 {
   "name": "@fermyon/wasi-ext",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
     "test": "(cd tests && ./test.sh)",
     "build": "tsc",
-    "postinstall": "knitwit-postinstall"
+    "postinstall": "knitwit-postinstall --wit-path ../../wit --world js-wasi-ext"
   },
   "repository": {
     "type": "git",
@@ -28,7 +28,7 @@
     "path-browserify": "^1.0.1",
     "process": "^0.11.10",
     "webpack": "^5.92.0",
-    "@fermyon/knitwit": "https://github.com/fermyon/knitwit"
+    "@fermyon/knitwit": "https://github.com/fermyon/knitwit#127f09d1f4c5992ee94243583940ef7e28df443e"
   },
   "config": {
     "knitwit": {
