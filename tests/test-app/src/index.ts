@@ -1,5 +1,5 @@
 import fs from "fs";
-import { setupExt } from "../../../src";
+import { setupExt } from "@spinframework/wasi-ext";
 import process from "process"
 
 //@ts-ignore
@@ -48,10 +48,4 @@ function testEnvVars() {
 
 function testReadFile() {
     return fs.readFileSync("./test.txt").toString("utf-8")
-}
-
-// Keep wizer happy during pre-init. Should go away
-// oncehttps://github.com/bytecodealliance/ComponentizeJS/issues/114 is resolved
-export const incomingHandler = {
-    handle() { }
 }

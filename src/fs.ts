@@ -1,7 +1,7 @@
 //@ts-ignore
-import { getDirectories } from 'wasi:filesystem/preopens@0.2.0'
-//@ts-ignore 
-import { Descriptor, DirectoryEntry } from './types/wasi-filesystem-types'
+import { getDirectories } from 'wasi:filesystem/preopens@0.2.3'
+//@ts-ignore
+import { Descriptor, DirectoryEntry } from 'wasi:filesystem/types@0.2.3';
 import pathUtility from "path";
 import process from "./process"
 import { Dirent } from 'fs';
