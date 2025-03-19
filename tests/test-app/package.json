@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "npx webpack && mkdirp dist && j2w -i build/bundle.js -o dist/wasi-ext-tests.wasm"
+    "build": "npx webpack && mkdirp dist && j2w -i build/bundle.js -n test -o dist/wasi-ext-tests.wasm"
   },
   "author": "",
   "license": "Apache-2.0",
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@spinframework/wasi-ext": "file:../../",
-    "@spinframework/build-tools": "file:/Users/karthik_ganeshram/Work/spinframework/spin-js-sdk/packages/build-tools",
-    "@spinframework/wasi-http-proxy": "file:/Users/karthik_ganeshram/Work/spinframework/spin-js-sdk/packages/http-trigger"
+    "@spinframework/build-tools": "1.0.0-beta1",
+    "@spinframework/wasi-http-proxy": "1.0.0-beta1"
   }
 }
