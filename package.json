@@ -1,6 +1,6 @@
 {
   "name": "@spinframework/wasi-ext",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
@@ -29,7 +29,7 @@
     "webpack": "^5.92.0"
   },
   "config": {
-    "witDeps": [
+    "witDependencies": [
       {
         "witPath": "./wit",
         "package": "spinframework:js-wasi-ext@0.2.3",
