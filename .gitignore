@@ -3,4 +3,6 @@ lib/
 *.wasm
 dist/
 target/
+dist/
+build/
 .spin

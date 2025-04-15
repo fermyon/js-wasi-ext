@@ -14,21 +14,17 @@ jobs:
     steps:
         - uses: actions/checkout@v3
 
-        - name: Use Node.js 20
+        - name: Use Node.js 22
           uses: actions/setup-node@v3
           with:
-            node-version: 20
+            node-version: 22
 
         - name: Install depencies
           shell: bash
           run: npm install
 
-        - name: Install spin
-          uses: engineerd/configurator@v0.0.8
-          with:
-            name: "spin"
-            url: "https://github.com/fermyon/spin/releases/download/v2.5.1/spin-v2.5.1-linux-amd64.tar.gz"
-            pathInArchive: "spin"
+        - name: Setup `spin`
+          uses: fermyon/actions/spin/setup@v1
 
         - name: Build
           shell: bash

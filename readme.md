@@ -9,15 +9,18 @@ This is a library compatible with WASI 0.2 that makes select Node.js APIs availa
 This library currently requires Webpack and uses a plugin to define the fall backs.:
 
 ```js
-const WasiExtPlugin = require("wasi-ext/plugin")
+import WasiExtPlugin from "@spinframework/wasi-ext/plugin/index.js";
 
-module.exports = {
+export default config = () => {
     ...
-    plugins: [
-        new WasiExtPlugin()
-    ],
-    ...
-};
+    return {
+        ...
+        plugins: [
+            new WasiExtPlugin()
+        ],
+        ...
+    }
+}
 
 ```
 
