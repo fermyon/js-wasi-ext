@@ -1,6 +1,6 @@
 import fs from "fs";
 import { setupExt } from "@spinframework/wasi-ext";
-import process from "process"
+import process from "node:process"
 
 //@ts-ignore
 addEventListener('fetch', (event: FetchEvent) => {
