@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+
 module.exports = class WasiExtPlugin {
     constructor() {
         this.fallbacks = {
@@ -6,19 +7,32 @@ module.exports = class WasiExtPlugin {
             fs: require.resolve('../lib/fs'),
             path: require.resolve('path-browserify'),
         };
+
     }
 
     apply(compiler) {
         const providePlugin = new webpack.ProvidePlugin({
             Buffer: ['buffer', 'Buffer'],
-            process: [require.resolve('../lib/process'), 'default']
+            process: [require.resolve('../lib/process'), 'default'],
         });
+
+        // Add a NormalModuleReplacementPlugin to handle `node:` imports
+        const normalModuleReplacements = [
+            ['node:fs', 'fs'],
+            ['node:process', 'process'],
+            ['node:path', 'path'],
+        ].map(([from, to]) => new webpack.NormalModuleReplacementPlugin(
+            new RegExp(`^${from}$`),
+            to
+        ));
 
         compiler.options.resolve.fallback = {
             ...compiler.options.resolve.fallback,
             ...this.fallbacks,
         };
 
-        compiler.options.plugins.push(providePlugin);
+
+        compiler.options.plugins = compiler.options.plugins || [];
+        compiler.options.plugins.push(providePlugin, ...normalModuleReplacements);
     }
 };
